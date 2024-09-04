@@ -1,5 +1,5 @@
 import os
-from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 from api import RuleRequest
 

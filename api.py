@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Request
+from fastapi import BackgroundTasks, FastAPI, Request, Response
 from pydantic import BaseModel
 from api_types import RuleRequest, rule_translator
 from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer
@@ -53,7 +53,8 @@ async def shutdown():
 
         os.kill(os.getpid(), signal.SIGINT)
 
-    shutdown_server()
+    BackgroundTasks(shutdown_server())
+    return Response()
 
 
 if __name__ == "__main__":
