@@ -5,9 +5,9 @@ from api import RuleRequest
 
 
 def start_model(model_name):
-    model_name = f"/models/{model_name}"  # Replace with the path to your local model
-    tokeniser = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForSequenceClassification.from_pretrained(model_name)
+    model_name = f"models/{model_name}/"
+    tokeniser = AutoTokenizer.from_pretrained(model_name + "token")
+    model = AutoModelForSequenceClassification.from_pretrained(model_name + "model")
     return model, tokeniser
 
 
