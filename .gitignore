@@ -1,3 +1,15 @@
-.venv
-models
+venv
+models/bert/model/*
+models/bert/token/*
+!models/bert/token/
+!models/bert/model/
+models/distilbert/model/*
+models/distilbert/token/*
+!models/distilbert/token/
+!models/distilbert/model/
+models/xlnet/model/*
+models/xlnet/token/*
+!models/xlnet/token/
+!models/xlnet/model/
+
 __pycache__

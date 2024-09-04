@@ -8,5 +8,8 @@ class RuleRequest(BaseModel):
     Heading_2: float
     Speed_2: float
 
+class ModelRequest(BaseModel):
+    model: str
+
 
 rule_translator = {0: 13, 1: 14, 2: 15}

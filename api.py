@@ -1,36 +1,37 @@
 from contextlib import asynccontextmanager
-from fastapi import BackgroundTasks, FastAPI, Request, Response
+from fastapi import BackgroundTasks, FastAPI, Request, Response, HTTPException
 from pydantic import BaseModel
-from api_types import RuleRequest, rule_translator
+from api_types import RuleRequest, rule_translator, ModelRequest
 from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer
 import argparse
 import torch
 from utils import format_text, start_model
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--model", type=str, default="bert")
-parser.add_argument("--port", type=int, default=8000)
-args = parser.parse_args()
-MODEL = args.model
-PORT = args.port
+
+
+PORT = 8000
+model = None
+tokeniser = None
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 api = FastAPI()
 
 
-@asynccontextmanager
-async def lifespan(MODEL):
+@api.post("/model")
+async def load_model(request: ModelRequest):
     global model
     global tokeniser
     global device
-    model, tokeniser = start_model(MODEL)
+    model, tokeniser = start_model(request.model)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
     model.eval()
-    yield
-
+    return {"model": request.model}
 
 @api.post("/get")
 async def get_rule(request: RuleRequest):
+    if model is None or tokeniser is None:
+        raise HTTPException(status_code=400, detail="Model and tokeniser are not initialized")
 
     inputs = format_text(tokeniser, request)
     inputs = {key: value.to(device) for key, value in inputs.items()}
