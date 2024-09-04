@@ -1,7 +1,6 @@
 import os
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
-
-from api import RuleRequest
+from api_types import RuleRequest
 
 
 def start_model(model_name):
@@ -20,7 +19,7 @@ def format_text(tokeniser, text: RuleRequest):
     )
 
     inputs = tokeniser.encode_plus(
-        text,
+        formatted_text,
         add_special_tokens=True,
         max_length=128,
         padding="max_length",

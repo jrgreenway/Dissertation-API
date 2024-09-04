@@ -1,4 +1,4 @@
-venv
+.venv/
 models/bert/model/*
 models/bert/token/*
 !models/bert/token/

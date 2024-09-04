@@ -6,7 +6,7 @@ then
     exit 1
 fi
 
-python -m venv venv
+python -m venv .venv
 if [ $? -ne 0 ]; then
     echo "Failed to create virtual environment."
     exit 1
