@@ -4,6 +4,7 @@ from api_types import RuleRequest
 
 
 def start_model(model_name):
+    # A helper function which loads pre-saved models and tokenisers.
     model_name = f"models/{model_name}/"
     tokeniser = AutoTokenizer.from_pretrained(model_name + "token")
     model = AutoModelForSequenceClassification.from_pretrained(model_name + "model")
@@ -11,6 +12,7 @@ def start_model(model_name):
 
 
 def format_text(tokeniser, text: RuleRequest):
+    # This functin formats and tokenises the POST request body into the predecided sentence format, returning the model inputs.
     formatted_text = (
         f"The primary ship has a position (500, 500), "
         f"a heading of 0 degrees, and a speed of 10 knots. "

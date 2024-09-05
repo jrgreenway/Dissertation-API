@@ -12,7 +12,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-source venv/bin/activate
+source .venv/bin/activate
 if [ $? -ne 0 ]; then
     echo "Failed to activate virtual environment."
     exit 1

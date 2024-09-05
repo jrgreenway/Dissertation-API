@@ -7,7 +7,7 @@ IF %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-call venv\Scripts\activate
+call .venv\Scripts\activate
 IF %ERRORLEVEL% NEQ 0 (
     echo Failed to activate virtual environment.
     pause

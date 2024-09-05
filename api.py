@@ -14,6 +14,7 @@ api = FastAPI()
 
 @api.post("/model")
 async def load_model(request: ModelRequest):
+    # This function uses start_model to load a saved model, on request from the client.
     print(request)
     global model
     global tokeniser
@@ -27,6 +28,7 @@ async def load_model(request: ModelRequest):
 
 @api.post("/get")
 async def get_rule(request: RuleRequest):
+    # This method retrieves the LLM's prediction of the rule, with request containing the relevent ship infomation from the client.
     print(request)
     if model is None or tokeniser is None:
         raise HTTPException(
